@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Salary Management</title>
+</head>
+<body>
+    <h1>Employee Salary Management System</h1>
+
+    <form action="/calculate" method="post">
+        <label for="employeeId">Employee ID:</label>
+        <input type="text" id="employeeId" name="employeeId" required>
+        <br><br>
+
+        <label for="employeeName">Employee Name:</label>
+        <input type="text" id="employeeName" name="employeeName" required>
+        <br><br>
+
+        <label for="basicSalary">Basic Salary (₹):</label>
+        <input type="number" id="basicSalary" name="basicSalary"
+               min="0" step="0.01" required>
+        <br><br>
+
+        <label for="hra">HRA (₹):</label>
+        <input type="number" id="hra" name="hra"
+               min="0" step="0.01" required>
+        <br><br>
+
+        <label for="otherAllowances">Other Allowances (₹):</label>
+        <input type="number" id="otherAllowances" name="otherAllowances"
+               min="0" step="0.01" required>
+        <br><br>
+
+        <button type="submit">Calculate Salary</button>
+    </form>
+
+    <section th:if="${grossSalary != null}">
+        <h2>Salary Details</h2>
+
+        <p>Employee ID: <span th:text="${employeeId}"></span></p>
+        <p>Employee Name: <span th:text="${employeeName}"></span></p>
+        <p>Basic Salary: ₹<span th:text="${#numbers.formatDecimal(basicSalary, 1, 2)}"></span></p>
+        <p>HRA: ₹<span th:text="${#numbers.formatDecimal(hra, 1, 2)}"></span></p>
+        <p>Other Allowances: ₹<span th:text="${#numbers.formatDecimal(otherAllowances, 1, 2)}"></span></p>
+        <p>Gross Monthly Salary: ₹<span th:text="${#numbers.formatDecimal(grossSalary, 1, 2)}"></span></p>
+        <p>Annual Gross Salary: ₹<span th:text="${#numbers.formatDecimal(annualSalary, 1, 2)}"></span></p>
+    </section>
+</body>
+</html>
