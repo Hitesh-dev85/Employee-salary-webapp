@@ -22,5 +22,23 @@ pipeline {
 		sh 'mvn test'
 	    }
 	}
+	stage('SonarQube Analysis') {
+	    steps {
+		withSonarQubeEnv('SonarQube') {
+		    script {
+			def scannerHome = tool 'SonarScanner'
+			
+			sh """
+			 ${scannerHome}/bin/sonar-scanner \
+			 -Dsonar.projectKey=employee-salary-webapp \
+			 -Dsonar.projectName=Employee-Salary-Webapp \
+			 -Dsonar.sources=src/main/java \
+			 -Dsonar.tests=src/test/java \
+			 -Dsonar.java.binaries=target/classes
+			"""
+		    }
+		}
+	    }
+	}
     }
 }
